@@ -25,7 +25,7 @@ const Menu = () => {
           Dashboard
         </h1>
       </div>
-      <div className="bg-white my-5 flex min-h-screen">
+      <div className="bg-white my-5 flex h-auto">
         <input
           value={name}
           onChange={e => setName(e.target.value)}
