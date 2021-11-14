@@ -34,7 +34,7 @@ const Menu = () => {
           placeholder="Device Name"
           type="text"
           required
-          className="w-1/4 border border-gray-300 mx-5 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-red-200 focus:ring-1 focus:ring-red-200"
+          className="w-1/3 border border-gray-300 mx-5 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-red-200 focus:ring-1 focus:ring-red-200"
         />
         <button
           disabled={name ? false : true}
