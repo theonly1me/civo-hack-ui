@@ -4,7 +4,9 @@ import { API_ENDPOINT } from '../Utils/Constants';
 
 const Menu = () => {
   const [devices, setDevices] = useState([]);
+  const [change, setChange] = useState(false);
   const [name, setName] = useState('');
+
   useEffect(() => {
     (async () => {
       const {
@@ -12,7 +14,7 @@ const Menu = () => {
       } = await axios.get(`${API_ENDPOINT}/api/devices`);
       setDevices(data);
     })();
-  }, [devices]);
+  }, [change]);
   const toggleClass =
     'transform translate-x-5 transition ease-in-out duration-200';
 
@@ -34,7 +36,7 @@ const Menu = () => {
         />
         <button
           disabled={name ? false : true}
-          class={`py-3 px-7 text-white  my-2 justify-center items-center mx-5 rounded-full text-xl hover:bg-red-300 transition duration-300 ease-in-out flex items-center ${
+          className={`py-3 px-7 text-white  my-2 justify-center items-center mx-5 rounded-full text-xl hover:bg-red-300 transition duration-300 ease-in-out flex items-center ${
             name ? 'bg-red-400' : 'bg-gray-300'
           }`}
           onClick={async () => {
@@ -63,54 +65,56 @@ const Menu = () => {
       </div>
       <div className="bg-white h-screen flex flex-col my-5">
         {devices.map(device => (
-          <div className="flex flex-row bg-white shadow-md m-4 p-4">
-            <React.Fragment key={device['device_id']}>
-              <div className="mx-5">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
-                  />
-                </svg>
-              </div>
-              <div className="ml-2 flex-1">
-                <h2 className="font-bold text-2xl text-red-400">
-                  {device['device_name']}
-                </h2>
-                <h3 className="font-bold text-xl">
-                  {device['device_active'] ? 'Turned On' : 'Turned Off'}
-                </h3>
-              </div>
-              <div
-                className="md:w-14 mx-5 md:h-7 w-12 h-6 flex items-center bg-gray-300 rounded-full p-1 cursor-pointer"
-                onClick={async () => {
-                  await axios.patch(
-                    `${API_ENDPOINT}/api/devices/${device['device_id']}`,
-                    {
-                      active: !device['device_active'],
-                    }
-                  );
-                }}
+          <div
+            className="flex flex-row bg-white shadow-md m-4 p-4"
+            key={device['device_id']}
+          >
+            <div className="mx-5">
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <div
-                  className={`${
-                    !device['device_active'] ? 'bg-white' : 'bg-red-400'
-                  } md:w-6 md:h-6 h-5 w-5 rounded-full shadow-md transform ${
-                    !device['device_active']
-                      ? 'transform translate-x-0 transition ease-in-out duration-200'
-                      : toggleClass
-                  }`}
-                ></div>
-              </div>
-            </React.Fragment>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+                />
+              </svg>
+            </div>
+            <div className="ml-2 flex-1">
+              <h2 className="font-bold text-2xl text-red-400">
+                {device['device_name']}
+              </h2>
+              <h3 className="font-bold text-xl">
+                {device['device_active'] ? 'Turned On' : 'Turned Off'}
+              </h3>
+            </div>
+            <div
+              className="md:w-14 mx-5 md:h-7 w-12 h-6 flex items-center bg-gray-300 rounded-full p-1 cursor-pointer"
+              onClick={async () => {
+                await axios.patch(
+                  `${API_ENDPOINT}/api/devices/${device['device_id']}`,
+                  {
+                    active: !device['device_active'],
+                  }
+                );
+                setChange(change => !change);
+              }}
+            >
+              <div
+                className={`${
+                  !device['device_active'] ? 'bg-white' : 'bg-red-400'
+                } md:w-6 md:h-6 h-5 w-5 rounded-full shadow-md transform ${
+                  !device['device_active']
+                    ? 'transform translate-x-0 transition ease-in-out duration-200'
+                    : toggleClass
+                }`}
+              ></div>
+            </div>
           </div>
         ))}
       </div>
