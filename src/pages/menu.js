@@ -20,12 +20,12 @@ const Menu = () => {
 
   return (
     <>
-      <div className="p-10 flex justify-center items-center bg-red-400 min-h-screen">
+      <div className="p-10 flex justify-center items-center bg-red-400">
         <h1 className="lg:text-9xl md:text-7xl sm:text-5xl text-3xl uppercase font-black text-white ">
           Dashboard
         </h1>
       </div>
-      <div className="bg-white my-5 flex">
+      <div className="bg-white my-5 flex min-h-screen">
         <input
           value={name}
           onChange={e => setName(e.target.value)}
