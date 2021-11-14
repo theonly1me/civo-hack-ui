@@ -1,5 +1,4 @@
 import React from 'react';
-import ImageOne from '../images/smart-01.jpg';
 import ImageTwo from '../images/smart-02.jpg';
 
 const Content = () => {
