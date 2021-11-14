@@ -38,8 +38,8 @@ const Menu = () => {
         />
         <button
           disabled={name ? false : true}
-          className={`py-3 px-7 text-white  my-2 justify-center items-center mx-5 rounded-full text-xl hover:bg-red-300 transition duration-300 ease-in-out flex items-center ${
-            name ? 'bg-red-400' : 'bg-gray-300'
+          className={`py-3 px-7 text-white  my-2 justify-center items-center mx-5 rounded-full text-xl transition duration-300 ease-in-out flex items-center ${
+            name ? 'bg-red-400 hover:bg-red-300' : 'bg-gray-300'
           }`}
           onClick={async () => {
             await axios.post(`${API_ENDPOINT}/api/devices`, {
