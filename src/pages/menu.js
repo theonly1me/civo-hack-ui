@@ -44,6 +44,7 @@ const Menu = () => {
               name,
               active: false,
             });
+            setChange(change => !change);
           }}
         >
           <svg
