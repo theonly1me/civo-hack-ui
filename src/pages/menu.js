@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_ENDPOINT } from '../Utils/Constants';
+import { API_ENDPOINT, API_ENDPOINT_CIVO } from '../Utils/Constants';
 
 const Menu = () => {
   const [devices, setDevices] = useState([]);
@@ -9,10 +9,17 @@ const Menu = () => {
 
   useEffect(() => {
     (async () => {
-      const {
-        data: { data },
-      } = await axios.get(`${API_ENDPOINT}/api/devices`);
-      setDevices(data);
+      try {
+        const {
+          data: { data },
+        } = await axios.get(`${API_ENDPOINT_CIVO}/api/devices`);
+        setDevices(data);
+      } catch (e) {
+        const {
+          data: { data },
+        } = await axios.get(`${API_ENDPOINT}/api/devices`);
+        setDevices(data);
+      }
     })();
   }, [change]);
   const toggleClass =
